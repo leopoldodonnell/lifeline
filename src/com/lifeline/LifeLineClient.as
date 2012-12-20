@@ -7,19 +7,19 @@ package com.lifeline {
   import flash.net.LocalConnection;
 
   /**
-   * The LifeLineClient is the interface to other LifeLine servers that
+   * The LifelineClient is the interface to other Lifeline servers that
    * may or may not be running. This class manages the LocalConnection and
-   * provides the interface to calls that can be made to other LifeLine
+   * provides the interface to calls that can be made to other Lifeline
    * servers.
    */
-  public class LifeLineClient {
+  public class LifelineClient {
     private var client_name:String;
     private var client_server:LocalConnection;
     private var status_callback:String;
     private var m_is_connected:Boolean = false;
     private var ping_timer:Timer = new Timer(1000, 0);
 
-    public function LifeLineClient(client_name:String, ping_frequency:Number, status_callback:String) {
+    public function LifelineClient(client_name:String, ping_frequency:Number, status_callback:String) {
       this.client_name = client_name;
       this.status_callback = status_callback;
       client_server = new LocalConnection();
@@ -61,6 +61,9 @@ package com.lifeline {
             ExternalInterface.call(status_callback, client_name, "DISCONNECTED");
             is_connected = false;
           }
+          break;
+        default:
+          ExternalInterface.call(status_callback, client_name, "DISCONNECTED");
           break;
       }    
     }

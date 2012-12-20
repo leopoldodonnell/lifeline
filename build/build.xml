@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- build.xml for LifeLine -->
-<project name="LifeLine" basedir=".." default="main">
+<!-- build.xml for Lifeline -->
+<project name="Lifeline" basedir=".." default="main">
   <property file="${basedir}/build/build.properties" />
   <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
   <target name="main" description="Compiles lifeline into a SWF">

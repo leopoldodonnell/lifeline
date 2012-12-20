@@ -1,24 +1,24 @@
-LifeLine
+Lifeline
 ========
 
-LifeLine is a utility, written with Adobe Flex, that offers a connection service between web pages where cookies are not an 
+Lifeline is a utility, written with Adobe Flex, that offers a connection service between web pages where cookies are not an 
 appropriate solution.
 
 (Author's Note: My initial need was to offer a way to communicate from a web page to an application running another
 web page in a webkit.)
 
-LifeLine offers a way to determine when other LifeLine instances are available through an internal ping, offers
+Lifeline offers a way to determine when other Lifeline instances are available through an internal ping, offers
 a method to send JSON data and to send shutdown requests.
 
 Setup
 -----
 
-LifeLine is designed to be driven via javascript. To set it up, use the swfobject.js library which can be included on your page
+Lifeline is designed to be driven via javascript. To set it up, use the swfobject.js library which can be included on your page
 from google here:
 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
 
-The following code segment demonstrates how to initialize a LifeLine instance:
+The following code segment demonstrates how to initialize a Lifeline instance:
 
     var swfVersionStr = '11.0.0'; // minimum flash version
     var flashvars = {
@@ -40,7 +40,7 @@ The following code segment demonstrates how to initialize a LifeLine instance:
     // JavaScript enabled so display the flashContent div in case it is not replaced with a swf object.
     swfobject.createCSS('#my_flash_div', 'display:block;text-align:left;');
 
-    // called when the LifeLine component has completed initialization.
+    // called when the Lifeline component has completed initialization.
     function my_lifeline(lifeline_name, status) {
       // Do something on initialization.
     }
@@ -56,7 +56,7 @@ The following code segment demonstrates how to initialize a LifeLine instance:
       
     }
     
-Once this has been done, connecting to, and monitoring another LifeLine instance is simple. The following code
+Once this has been done, connecting to, and monitoring another Lifeline instance is simple. The following code
 shows how to monitor the status of another instance named 'lifeline_remote'.
 
     ...
@@ -78,10 +78,10 @@ API
 
 Initialization Properties:
 
-* server_name:String optional - makes the component a server that can accept requests from other local LifeLine servers.
+* server_name:String optional - makes the component a server that can accept requests from other local Lifeline servers.
 * onReady:String optional- a javascript callback to call when the component has been initialized. A JSON object with status and message are passed.
-* onJsonData:String optional - a javascript callback to call when other LifeLine servers send it json_data. The originating LifeLine server name and json_data are passed as parameters.
-* onShutdown:String optional - a javascript calback to call when other LifeLine servers send it a shutdown notice. The originating LifeLine Server name is passed as a parameter.
+* onJsonData:String optional - a javascript callback to call when other Lifeline servers send it json_data. The originating Lifeline server name and json_data are passed as parameters.
+* onShutdown:String optional - a javascript calback to call when other Lifeline servers send it a shutdown notice. The originating Lifeline Server name is passed as a parameter.
 
 Available functions:
 

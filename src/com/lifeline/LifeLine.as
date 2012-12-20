@@ -7,7 +7,7 @@ package com.lifeline {
   import flash.system.Security;
   
   /**
-   * LifeLine provides a life-line that connects multiple instances of 
+   * Lifeline provides a life-line that connects multiple instances of 
    * javascripted Flash Components hosted on the same machine together.
    *
    * Each instance can act as a server that other intances can connect to.
@@ -25,18 +25,18 @@ package com.lifeline {
    *
    * Available flash_vars:
    *  * server_name:String optional - makes the component a server that can accept
-   *    requests from other local LifeLine servers.
+   *    requests from other local Lifeline servers.
    *  * onReady:String optional- a javascript callback to call when the component
    *    has been initialized. A JSON object with status and message are passed.
-   *  * onJsonData:String optional - a javascript callback to call when other LifeLine
-   *    servers send it json_data. The originating LifeLine server name and json_data
+   *  * onJsonData:String optional - a javascript callback to call when other Lifeline
+   *    servers send it json_data. The originating Lifeline server name and json_data
    *    are passed as parameters.
-   *  * onShutdown:String optional - a javascript calback to call when other LifeLine
-   *    servers send it a shutdown notice. The originating LifeLine Server name is
+   *  * onShutdown:String optional - a javascript calback to call when other Lifeline
+   *    servers send it a shutdown notice. The originating Lifeline Server name is
    *    passed as a parameter.
    */
-  public class LifeLine extends Application {
-    private var local_server : LifeLineLocalConnection;
+  public class Lifeline extends Application {
+    private var local_server : LifelineLocalConnection;
     private var m_is_connected : Boolean = false;
     
     // A collection of connected clients
@@ -47,7 +47,7 @@ package com.lifeline {
     private var js_on_json_data : String; // expects client_name and data
     private var js_on_shutdown : String;  // expects client_name
     
-    public function LifeLine() {
+    public function Lifeline() {
 			addEventListener(FlexEvent.APPLICATION_COMPLETE, main_init);
     }
     
@@ -95,7 +95,7 @@ package com.lifeline {
     private function start_server(server_name:String) : String {
       this.server_name = server_name;
       
-      local_server = new LifeLineLocalConnection();
+      local_server = new LifelineLocalConnection();
       local_server.send_json  = this.on_send_json;
       local_server.ping       = this.on_ping;
       local_server.shutdown   = this.on_shutdown;
@@ -104,6 +104,7 @@ package com.lifeline {
       local_server.allowDomain('*');      
 
       try {
+        // add an _ to allow all domains.
         local_server.connect("_" + this.server_name);
         is_connected = true;
       }
@@ -120,7 +121,7 @@ package com.lifeline {
     // -- Calls from java
     
     /*
-     * Connect to another LifeLine server via javascript
+     * Connect to another Lifeline server via javascript
      *
      * client_name: the name of the server
      * ping_frequency: the number of seconds between pings to the named server
@@ -128,7 +129,7 @@ package com.lifeline {
      *  changes. The callback will be sent the server name and the status ("CONNECTED", "DISCONNECTED")
      */
     private function ext_connect(client_name:String, ping_frequency:Number, status_callback:String) : void {
-      var client:LifeLineClient = new LifeLineClient(client_name, ping_frequency, status_callback);
+      var client:LifelineClient = new LifelineClient(client_name, ping_frequency, status_callback);
       clients[client_name] = client;
       client.start();
     }
@@ -137,15 +138,15 @@ package com.lifeline {
      * Determine if a LiveLine server is connected via javacript
      */
     private function ext_is_connected(client_name:String) : Boolean {
-      var client:LifeLineClient = clients[client_name];
+      var client:LifelineClient = clients[client_name];
       return client ? client.is_connected : false;
     }
 
     /*
-     * Send JSON data to another LifeLine server via javascript.
+     * Send JSON data to another Lifeline server via javascript.
      */
     private function ext_send_json(client_name:String, json_data:String) : String {
-      var client:LifeLineClient = clients[client_name];
+      var client:LifelineClient = clients[client_name];
       if (client)  {
         client.send_json(json_data);
         return json_return("OK");
@@ -154,12 +155,12 @@ package com.lifeline {
     }
     
     /*
-     * Send a shutdown notice to another LifeLine server via javascript.
+     * Send a shutdown notice to another Lifeline server via javascript.
      * No policy is enforced, it is up to implementers to decide what to
      * once the message has been sent.
      */
     private function ext_shutdown(client_name:String) : String {
-      var client:LifeLineClient = clients[client_name];
+      var client:LifelineClient = clients[client_name];
       if (client) {
         client.shutdown();
         return json_return("OK");
@@ -170,7 +171,7 @@ package com.lifeline {
     // -- Calls from other clients
     
     /*
-     * Handle SJON data from other LifeLine servers.
+     * Handle SJON data from other Lifeline servers.
      */
     public function on_send_json(client_name:String, json_string:String) : void {
       if (js_on_json_data) ExternalInterface.call(js_on_json_data, client_name, json_string);
@@ -197,9 +198,9 @@ internal function json_return(status:String, message:String = '') : String {
 }
 
 internal function json_client_error(client_name:String) : String {
-  return json_return("ERROR", "LifeLine didn't find client: " + client_name + 
+  return json_return("ERROR", "Lifeline didn't find client: " + client_name + 
                       " Try calling the connect method first.");
 }
 
 
-internal dynamic class LifeLineLocalConnection extends flash.net.LocalConnection {}
+internal dynamic class LifelineLocalConnection extends flash.net.LocalConnection {}
