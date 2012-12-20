@@ -23,7 +23,7 @@ The following code segment demonstrates how to initialize a Lifeline instance:
       server_name : 'my_lifeline',
       onReady :     'my_ready_function',
       onJsonData :  'my_json_function',
-      onShutdown :  'mu_shutdown_function'
+      onShutdown :  'my_shutdown_function'
     };
     var attributes = {
       id : 'my_lifeline', name : 'my_lifeline'
