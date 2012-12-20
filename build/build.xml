@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- build.xml for LifeLine -->
+<project name="LifeLine" basedir=".." default="main">
+  <property file="${basedir}/build/build.properties" />
+  <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/ant/lib/flexTasks.jar"/>
+  <target name="main" description="Compiles lifeline into a SWF">
+    <echo>Compiling "${bin}/lifeline.swf"...</echo>
+    <mxmlc file="${basedir}/src/lifeline.mxml" output="${bin}/lifeline.swf">
+      <source-path path-element="${src}" />
+    </mxmlc>
+  </target>
+</project>
