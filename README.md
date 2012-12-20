@@ -1,13 +1,11 @@
 Lifeline
 ========
 
-Lifeline is a utility, written with Adobe Flex, that offers a connection service between web pages where cookies are not an 
-appropriate solution.
+Lifeline is a utility, written with Adobe Flex, that offers a connection service between web pages even if they are in
+different applications. Great for determining connectivity or co-ordinating activities without going through a central
+server.
 
-(Author's Note: My initial need was to offer a way to communicate from a web page to an application running another
-web page in a webkit.)
-
-Lifeline offers a way to determine when other Lifeline instances are available through an internal ping, offers
+Lifeline offers ways to determine when other Lifeline instances are available through an internal ping, offers
 a method to send JSON data and to send shutdown requests.
 
 Setup
